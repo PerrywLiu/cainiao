@@ -27912,6 +27912,8 @@ paths:
       tags:
         - Query
 definitions:
+  cosmonaut.cainiao.cainiao.MsgAddOrderResponse:
+    type: object
   cosmonaut.cainiao.cainiao.Orders:
     type: object
     properties:

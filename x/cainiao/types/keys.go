@@ -25,3 +25,11 @@ const (
 	OrdersKey      = "Orders-value-"
 	OrdersCountKey = "Orders-count-"
 )
+
+const (
+	StateWait = "wait"
+	StateStart = "start"
+	StateOntheWay = "ontheway"
+	StateReceive = "receive"
+)
+

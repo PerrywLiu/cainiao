@@ -9,6 +9,8 @@
  * ---------------------------------------------------------------
  */
 
+export type CainiaoMsgAddOrderResponse = object;
+
 export interface CainiaoOrders {
   /** @format uint64 */
   id?: string;

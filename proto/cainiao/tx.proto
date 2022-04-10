@@ -7,7 +7,21 @@ option go_package = "github.com/cosmonaut/cainiao/x/cainiao/types";
 
 // Msg defines the Msg service.
 service Msg {
-    // this line is used by starport scaffolding # proto/tx/rpc
+      rpc AddOrder(MsgAddOrder) returns (MsgAddOrderResponse);
+// this line is used by starport scaffolding # proto/tx/rpc
+}
+
+message MsgAddOrder {
+  string creator = 1;
+  string sendName = 2;
+  string sendAddress = 3;
+  string sendTel = 4;
+  string receiveName = 5;
+  string receiveAddress = 6;
+  string receiveTel = 7;
+}
+
+message MsgAddOrderResponse {
 }
 
 // this line is used by starport scaffolding # proto/tx/message
