@@ -32,6 +32,13 @@ export interface MsgUpdateOrderState {
 
 export interface MsgUpdateOrderStateResponse {}
 
+export interface MsgReceiveOrder {
+  creator: string;
+  id: number;
+}
+
+export interface MsgReceiveOrderResponse {}
+
 const baseMsgAddOrder: object = {
   creator: "",
   sendName: "",
@@ -509,14 +516,133 @@ export const MsgUpdateOrderStateResponse = {
   },
 };
 
+const baseMsgReceiveOrder: object = { creator: "", id: 0 };
+
+export const MsgReceiveOrder = {
+  encode(message: MsgReceiveOrder, writer: Writer = Writer.create()): Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.id !== 0) {
+      writer.uint32(16).int32(message.id);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgReceiveOrder {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseMsgReceiveOrder } as MsgReceiveOrder;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        case 2:
+          message.id = reader.int32();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgReceiveOrder {
+    const message = { ...baseMsgReceiveOrder } as MsgReceiveOrder;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator);
+    } else {
+      message.creator = "";
+    }
+    if (object.id !== undefined && object.id !== null) {
+      message.id = Number(object.id);
+    } else {
+      message.id = 0;
+    }
+    return message;
+  },
+
+  toJSON(message: MsgReceiveOrder): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.id !== undefined && (obj.id = message.id);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<MsgReceiveOrder>): MsgReceiveOrder {
+    const message = { ...baseMsgReceiveOrder } as MsgReceiveOrder;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    } else {
+      message.creator = "";
+    }
+    if (object.id !== undefined && object.id !== null) {
+      message.id = object.id;
+    } else {
+      message.id = 0;
+    }
+    return message;
+  },
+};
+
+const baseMsgReceiveOrderResponse: object = {};
+
+export const MsgReceiveOrderResponse = {
+  encode(_: MsgReceiveOrderResponse, writer: Writer = Writer.create()): Writer {
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgReceiveOrderResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseMsgReceiveOrderResponse,
+    } as MsgReceiveOrderResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgReceiveOrderResponse {
+    const message = {
+      ...baseMsgReceiveOrderResponse,
+    } as MsgReceiveOrderResponse;
+    return message;
+  },
+
+  toJSON(_: MsgReceiveOrderResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial(
+    _: DeepPartial<MsgReceiveOrderResponse>
+  ): MsgReceiveOrderResponse {
+    const message = {
+      ...baseMsgReceiveOrderResponse,
+    } as MsgReceiveOrderResponse;
+    return message;
+  },
+};
+
 /** Msg defines the Msg service. */
 export interface Msg {
   AddOrder(request: MsgAddOrder): Promise<MsgAddOrderResponse>;
   UpdateOrder(request: MsgUpdateOrder): Promise<MsgUpdateOrderResponse>;
-  /** this line is used by starport scaffolding # proto/tx/rpc */
   UpdateOrderState(
     request: MsgUpdateOrderState
   ): Promise<MsgUpdateOrderStateResponse>;
+  /** this line is used by starport scaffolding # proto/tx/rpc */
+  ReceiveOrder(request: MsgReceiveOrder): Promise<MsgReceiveOrderResponse>;
 }
 
 export class MsgClientImpl implements Msg {
@@ -557,6 +683,18 @@ export class MsgClientImpl implements Msg {
     );
     return promise.then((data) =>
       MsgUpdateOrderStateResponse.decode(new Reader(data))
+    );
+  }
+
+  ReceiveOrder(request: MsgReceiveOrder): Promise<MsgReceiveOrderResponse> {
+    const data = MsgReceiveOrder.encode(request).finish();
+    const promise = this.rpc.request(
+      "cosmonaut.cainiao.cainiao.Msg",
+      "ReceiveOrder",
+      data
+    );
+    return promise.then((data) =>
+      MsgReceiveOrderResponse.decode(new Reader(data))
     );
   }
 }

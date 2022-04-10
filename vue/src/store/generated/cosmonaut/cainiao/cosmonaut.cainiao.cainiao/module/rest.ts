@@ -11,6 +11,8 @@
 
 export type CainiaoMsgAddOrderResponse = object;
 
+export type CainiaoMsgReceiveOrderResponse = object;
+
 export type CainiaoMsgUpdateOrderResponse = object;
 
 export type CainiaoMsgUpdateOrderStateResponse = object;

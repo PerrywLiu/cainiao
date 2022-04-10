@@ -10,6 +10,7 @@ service Msg {
       rpc AddOrder(MsgAddOrder) returns (MsgAddOrderResponse);
   rpc UpdateOrder(MsgUpdateOrder) returns (MsgUpdateOrderResponse);
   rpc UpdateOrderState(MsgUpdateOrderState) returns (MsgUpdateOrderStateResponse);
+  rpc ReceiveOrder(MsgReceiveOrder) returns (MsgReceiveOrderResponse);
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
@@ -42,6 +43,14 @@ message MsgUpdateOrderState {
 }
 
 message MsgUpdateOrderStateResponse {
+}
+
+message MsgReceiveOrder {
+  string creator = 1;
+  int32 id = 2;
+}
+
+message MsgReceiveOrderResponse {
 }
 
 // this line is used by starport scaffolding # proto/tx/message
