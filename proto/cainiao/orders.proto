@@ -1,0 +1,17 @@
+syntax = "proto3";
+package cosmonaut.cainiao.cainiao;
+
+option go_package = "github.com/cosmonaut/cainiao/x/cainiao/types";
+
+message Orders {
+  uint64 id = 1;
+  string sendName = 2; 
+  string sendAddress = 3; 
+  string sendTel = 4; 
+  string targetName = 5; 
+  string targetAddress = 6; 
+  string targetTel = 7; 
+  string state = 8; 
+  string station = 9; 
+  
+}

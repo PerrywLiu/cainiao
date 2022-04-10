@@ -1,0 +1,17 @@
+syntax = "proto3";
+package cosmonaut.cainiao.cainiao;
+
+import "gogoproto/gogo.proto";
+import "cainiao/params.proto";
+import "cainiao/orders.proto";
+// this line is used by starport scaffolding # genesis/proto/import
+
+option go_package = "github.com/cosmonaut/cainiao/x/cainiao/types";
+
+// GenesisState defines the cainiao module's genesis state.
+message GenesisState {
+  Params params = 1 [(gogoproto.nullable) = false];
+  repeated Orders ordersList = 2 [(gogoproto.nullable) = false];
+  uint64 ordersCount = 3;
+  // this line is used by starport scaffolding # genesis/proto/state
+}
