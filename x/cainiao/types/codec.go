@@ -9,12 +9,20 @@ import (
 
 func RegisterCodec(cdc *codec.LegacyAmino) {
 	cdc.RegisterConcrete(&MsgAddOrder{}, "cainiao/AddOrder", nil)
+	cdc.RegisterConcrete(&MsgUpdateOrder{}, "cainiao/UpdateOrder", nil)
+	cdc.RegisterConcrete(&MsgUpdateOrderState{}, "cainiao/UpdateOrderState", nil)
 	// this line is used by starport scaffolding # 2
 }
 
 func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 	registry.RegisterImplementations((*sdk.Msg)(nil),
 		&MsgAddOrder{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgUpdateOrder{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgUpdateOrderState{},
 	)
 	// this line is used by starport scaffolding # 3
 

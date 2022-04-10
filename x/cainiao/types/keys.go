@@ -27,9 +27,8 @@ const (
 )
 
 const (
-	StateWait = "wait"
-	StateStart = "start"
+	StateWait     = "wait"
+	StateStart    = "start"
 	StateOntheWay = "ontheway"
-	StateReceive = "receive"
+	StateReceive  = "receive"
 )
-

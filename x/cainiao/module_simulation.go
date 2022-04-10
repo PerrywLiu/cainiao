@@ -28,6 +28,14 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgAddOrder int = 100
 
+	opWeightMsgUpdateOrder = "op_weight_msg_create_chain"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgUpdateOrder int = 100
+
+	opWeightMsgUpdateOrderState = "op_weight_msg_create_chain"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgUpdateOrderState int = 100
+
 	// this line is used by starport scaffolding # simapp/module/const
 )
 
@@ -70,6 +78,28 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 	operations = append(operations, simulation.NewWeightedOperation(
 		weightMsgAddOrder,
 		cainiaosimulation.SimulateMsgAddOrder(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgUpdateOrder int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgUpdateOrder, &weightMsgUpdateOrder, nil,
+		func(_ *rand.Rand) {
+			weightMsgUpdateOrder = defaultWeightMsgUpdateOrder
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgUpdateOrder,
+		cainiaosimulation.SimulateMsgUpdateOrder(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgUpdateOrderState int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgUpdateOrderState, &weightMsgUpdateOrderState, nil,
+		func(_ *rand.Rand) {
+			weightMsgUpdateOrderState = defaultWeightMsgUpdateOrderState
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgUpdateOrderState,
+		cainiaosimulation.SimulateMsgUpdateOrderState(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
 	// this line is used by starport scaffolding # simapp/module/operation

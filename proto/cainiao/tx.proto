@@ -8,6 +8,8 @@ option go_package = "github.com/cosmonaut/cainiao/x/cainiao/types";
 // Msg defines the Msg service.
 service Msg {
       rpc AddOrder(MsgAddOrder) returns (MsgAddOrderResponse);
+  rpc UpdateOrder(MsgUpdateOrder) returns (MsgUpdateOrderResponse);
+  rpc UpdateOrderState(MsgUpdateOrderState) returns (MsgUpdateOrderStateResponse);
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
@@ -22,6 +24,24 @@ message MsgAddOrder {
 }
 
 message MsgAddOrderResponse {
+}
+
+message MsgUpdateOrder {
+  string creator = 1;
+  string station = 2;
+  uint64 id = 3;
+}
+
+message MsgUpdateOrderResponse {
+}
+
+message MsgUpdateOrderState {
+  string creator = 1;
+  string id = 2;
+  string station = 3;
+}
+
+message MsgUpdateOrderStateResponse {
 }
 
 // this line is used by starport scaffolding # proto/tx/message

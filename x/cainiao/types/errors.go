@@ -8,5 +8,7 @@ import (
 
 // x/cainiao module sentinel errors
 var (
-	ErrSample = sdkerrors.Register(ModuleName, 1100, "sample error")
+	ErrSample               = sdkerrors.Register(ModuleName, 1100, "sample error")
+	ErrOrderHasReceived     = sdkerrors.Register(ModuleName, 1001, "orderHasReceived")
+	ErrGetMsgCreatorAddress = sdkerrors.Register(ModuleName, 1002, "GetAddress faild")
 )

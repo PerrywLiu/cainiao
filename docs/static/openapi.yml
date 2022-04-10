@@ -27914,6 +27914,10 @@ paths:
 definitions:
   cosmonaut.cainiao.cainiao.MsgAddOrderResponse:
     type: object
+  cosmonaut.cainiao.cainiao.MsgUpdateOrderResponse:
+    type: object
+  cosmonaut.cainiao.cainiao.MsgUpdateOrderStateResponse:
+    type: object
   cosmonaut.cainiao.cainiao.Orders:
     type: object
     properties:
