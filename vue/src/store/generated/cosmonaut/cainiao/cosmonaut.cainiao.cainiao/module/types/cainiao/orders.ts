@@ -14,6 +14,7 @@ export interface Orders {
   targetTel: string;
   state: string;
   station: string;
+  locationRouter: string[];
 }
 
 const baseOrders: object = {
@@ -26,6 +27,7 @@ const baseOrders: object = {
   targetTel: "",
   state: "",
   station: "",
+  locationRouter: "",
 };
 
 export const Orders = {
@@ -57,6 +59,9 @@ export const Orders = {
     if (message.station !== "") {
       writer.uint32(74).string(message.station);
     }
+    for (const v of message.locationRouter) {
+      writer.uint32(82).string(v!);
+    }
     return writer;
   },
 
@@ -64,6 +69,7 @@ export const Orders = {
     const reader = input instanceof Uint8Array ? new Reader(input) : input;
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = { ...baseOrders } as Orders;
+    message.locationRouter = [];
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -94,6 +100,9 @@ export const Orders = {
         case 9:
           message.station = reader.string();
           break;
+        case 10:
+          message.locationRouter.push(reader.string());
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -104,6 +113,7 @@ export const Orders = {
 
   fromJSON(object: any): Orders {
     const message = { ...baseOrders } as Orders;
+    message.locationRouter = [];
     if (object.id !== undefined && object.id !== null) {
       message.id = Number(object.id);
     } else {
@@ -149,6 +159,11 @@ export const Orders = {
     } else {
       message.station = "";
     }
+    if (object.locationRouter !== undefined && object.locationRouter !== null) {
+      for (const e of object.locationRouter) {
+        message.locationRouter.push(String(e));
+      }
+    }
     return message;
   },
 
@@ -165,11 +180,17 @@ export const Orders = {
     message.targetTel !== undefined && (obj.targetTel = message.targetTel);
     message.state !== undefined && (obj.state = message.state);
     message.station !== undefined && (obj.station = message.station);
+    if (message.locationRouter) {
+      obj.locationRouter = message.locationRouter.map((e) => e);
+    } else {
+      obj.locationRouter = [];
+    }
     return obj;
   },
 
   fromPartial(object: DeepPartial<Orders>): Orders {
     const message = { ...baseOrders } as Orders;
+    message.locationRouter = [];
     if (object.id !== undefined && object.id !== null) {
       message.id = object.id;
     } else {
@@ -214,6 +235,11 @@ export const Orders = {
       message.station = object.station;
     } else {
       message.station = "";
+    }
+    if (object.locationRouter !== undefined && object.locationRouter !== null) {
+      for (const e of object.locationRouter) {
+        message.locationRouter.push(e);
+      }
     }
     return message;
   },

@@ -12,6 +12,7 @@ message Orders {
   string targetAddress = 6; 
   string targetTel = 7; 
   string state = 8; 
-  string station = 9; 
-  
+  string station = 9;
+
+  repeated string locationRouter = 10;
 }

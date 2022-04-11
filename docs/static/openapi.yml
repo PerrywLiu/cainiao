@@ -38,6 +38,10 @@ paths:
                       type: string
                     station:
                       type: string
+                    locationRouter:
+                      type: array
+                      items:
+                        type: string
               pagination:
                 type: object
                 properties:
@@ -174,6 +178,10 @@ paths:
                     type: string
                   station:
                     type: string
+                  locationRouter:
+                    type: array
+                    items:
+                      type: string
         default:
           description: An unexpected error response.
           schema:
@@ -27942,6 +27950,10 @@ definitions:
         type: string
       station:
         type: string
+      locationRouter:
+        type: array
+        items:
+          type: string
   cosmonaut.cainiao.cainiao.Params:
     type: object
     description: Params defines the parameters for the module.
@@ -27972,6 +27984,10 @@ definitions:
               type: string
             station:
               type: string
+            locationRouter:
+              type: array
+              items:
+                type: string
       pagination:
         type: object
         properties:
@@ -28022,6 +28038,10 @@ definitions:
             type: string
           station:
             type: string
+          locationRouter:
+            type: array
+            items:
+              type: string
   cosmonaut.cainiao.cainiao.QueryParamsResponse:
     type: object
     properties:

@@ -30,8 +30,9 @@ func (k msgServer) UpdateOrderState(goCtx context.Context, msg *types.MsgUpdateO
 	//}
 
 	time := time2.Now().Format("2006-01-02 15:04:05")
-	station := "操作者：" + msg.Creator + " 时间：" + time + "位置：" + msg.Station + "\n"
-	order.Station = order.Station + station
+	station := "操作者：" + msg.Creator + " 时间：" + time + " 位置：" + msg.Station
+	//order.Station = order.Station + station
+	order.LocationRouter = append(order.LocationRouter,station)
 
 	if order.State == types.StateWait {
 		order.State = types.StateStart

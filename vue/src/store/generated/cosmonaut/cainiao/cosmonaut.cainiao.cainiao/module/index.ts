@@ -4,17 +4,17 @@ import { StdFee } from "@cosmjs/launchpad";
 import { SigningStargateClient } from "@cosmjs/stargate";
 import { Registry, OfflineSigner, EncodeObject, DirectSecp256k1HdWallet } from "@cosmjs/proto-signing";
 import { Api } from "./rest";
-import { MsgAddOrder } from "./types/cainiao/tx";
 import { MsgUpdateOrder } from "./types/cainiao/tx";
 import { MsgUpdateOrderState } from "./types/cainiao/tx";
 import { MsgReceiveOrder } from "./types/cainiao/tx";
+import { MsgAddOrder } from "./types/cainiao/tx";
 
 
 const types = [
-  ["/cosmonaut.cainiao.cainiao.MsgAddOrder", MsgAddOrder],
   ["/cosmonaut.cainiao.cainiao.MsgUpdateOrder", MsgUpdateOrder],
   ["/cosmonaut.cainiao.cainiao.MsgUpdateOrderState", MsgUpdateOrderState],
   ["/cosmonaut.cainiao.cainiao.MsgReceiveOrder", MsgReceiveOrder],
+  ["/cosmonaut.cainiao.cainiao.MsgAddOrder", MsgAddOrder],
   
 ];
 export const MissingWalletError = new Error("wallet is required");
@@ -47,10 +47,10 @@ const txClient = async (wallet: OfflineSigner, { addr: addr }: TxClientOptions =
 
   return {
     signAndBroadcast: (msgs: EncodeObject[], { fee, memo }: SignAndBroadcastOptions = {fee: defaultFee, memo: ""}) => client.signAndBroadcast(address, msgs, fee,memo),
-    msgAddOrder: (data: MsgAddOrder): EncodeObject => ({ typeUrl: "/cosmonaut.cainiao.cainiao.MsgAddOrder", value: MsgAddOrder.fromPartial( data ) }),
     msgUpdateOrder: (data: MsgUpdateOrder): EncodeObject => ({ typeUrl: "/cosmonaut.cainiao.cainiao.MsgUpdateOrder", value: MsgUpdateOrder.fromPartial( data ) }),
     msgUpdateOrderState: (data: MsgUpdateOrderState): EncodeObject => ({ typeUrl: "/cosmonaut.cainiao.cainiao.MsgUpdateOrderState", value: MsgUpdateOrderState.fromPartial( data ) }),
     msgReceiveOrder: (data: MsgReceiveOrder): EncodeObject => ({ typeUrl: "/cosmonaut.cainiao.cainiao.MsgReceiveOrder", value: MsgReceiveOrder.fromPartial( data ) }),
+    msgAddOrder: (data: MsgAddOrder): EncodeObject => ({ typeUrl: "/cosmonaut.cainiao.cainiao.MsgAddOrder", value: MsgAddOrder.fromPartial( data ) }),
     
   };
 };

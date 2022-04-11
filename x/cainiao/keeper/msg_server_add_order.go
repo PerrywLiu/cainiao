@@ -19,6 +19,7 @@ func (k msgServer) AddOrder(goCtx context.Context, msg *types.MsgAddOrder) (*typ
 		TargetTel:     msg.ReceiveTel,
 		State:         types.StateWait,
 		Station:       "",
+		LocationRouter: []string{},
 	}
 
 	k.AppendOrders(ctx, order)

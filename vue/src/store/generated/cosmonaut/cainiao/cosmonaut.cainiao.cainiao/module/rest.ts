@@ -28,6 +28,7 @@ export interface CainiaoOrders {
   targetTel?: string;
   state?: string;
   station?: string;
+  locationRouter?: string[];
 }
 
 /**
